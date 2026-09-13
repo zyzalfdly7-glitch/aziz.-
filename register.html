@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التسجيل الإلكتروني - المدرسة الوطنية النموذجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/dark-theme.css">
+    <link rel="stylesheet" href="../css/rtl.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); padding: 60px 0; color: #fff; text-align: center; }
+        .page-header__title { font-size: 2.5rem; margin-bottom: 10px; }
+        .register-container { background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: -30px; position: relative; z-index: 10; margin-bottom: 60px; }
+        
+        .step-wizard__steps { display: flex; justify-content: space-between; margin-bottom: 40px; position: relative; }
+        .step-wizard__steps::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 2px; background: #eee; z-index: 1; }
+        .step-wizard__step { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; width: 20%; }
+        .step-wizard__step-number { width: 32px; height: 32px; background: #eee; color: #888; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s; }
+        .step-wizard__step.is-active .step-wizard__step-number { background: var(--color-primary); color: #fff; box-shadow: 0 0 0 4px rgba(0,85,151,0.2); }
+        .step-wizard__step.is-completed .step-wizard__step-number { background: var(--color-success); color: #fff; }
+        .step-wizard__step-label { font-size: 0.85rem; font-weight: 500; color: #888; text-align: center; }
+        .step-wizard__step.is-active .step-wizard__step-label { color: var(--color-primary); }
+        
+        .step-wizard__panel { display: none; animation: fadeIn 0.3s; }
+        .step-wizard__panel.is-active { display: block; }
+        .step-wizard__actions { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; }
+        
+        .summary-card { background: var(--color-gray-50); padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .summary-row { display: flex; margin-bottom: 10px; border-bottom: 1px dashed #ddd; padding-bottom: 10px; }
+        .summary-label { width: 40%; font-weight: 600; color: #555; }
+        .summary-value { width: 60%; font-weight: 500; }
+        
+        #success-message { text-align: center; display: none; padding: 40px 0; }
+        .success-icon { font-size: 4rem; color: var(--color-success); margin-bottom: 20px; }
+        .reg-number { font-size: 1.5rem; font-weight: bold; background: #f0f8ff; padding: 10px 20px; border-radius: 8px; display: inline-block; margin: 20px 0; border: 1px dashed var(--color-primary); color: var(--color-primary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container flex-between">
+            <a href="../index.html" class="navbar__logo">
+                <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                <span>المدرسة الوطنية النموذجية</span>
+            </a>
+            <button class="navbar__mobile-toggle">☰</button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">الرئيسية</a></li>
+                <li class="navbar__item"><a href="../index.html#about" class="navbar__link">عن المدرسة</a></li>
+                <li class="navbar__item"><a href="../index.html#services" class="navbar__link">الخدمات</a></li>
+                <li class="navbar__item"><a href="news.html" class="navbar__link">الأخبار</a></li>
+                <li class="navbar__item"><a href="results.html" class="navbar__link">النتائج</a></li>
+                <li class="navbar__item"><a href="register.html" class="navbar__link is-active">التسجيل</a></li>
+                <li class="navbar__item"><a href="contact.html" class="navbar__link">تواصل معنا</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <a href="login.html" class="btn btn--primary">تسجيل الدخول</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">التسجيل الإلكتروني</h1>
+            <p>سجل أبناءك الآن للعام الدراسي 2025-2026</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="register-container">
+            <div id="step-wizard" class="step-wizard">
+                <div class="step-wizard__steps">
+                    <div class="step-wizard__step is-active" data-step="1">
+                        <div class="step-wizard__step-number">1</div>
+                        <div class="step-wizard__step-label">بيانات الطالب</div>
+                    </div>
+                    <div class="step-wizard__step" data-step="2">
+                        <div class="step-wizard__step-number">2</div>
+                        <div class="step-wizard__step-label">البيانات الدراسية</div>
+                    </div>
+                    <div class="step-wizard__step" data-step="3">
+                        <div class="step-wizard__step-number">3</div>
+                        <div class="step-wizard__step-label">بيانات ولي الأمر</div>
+                    </div>
+                    <div class="step-wizard__step" data-step="4">
+                        <div class="step-wizard__step-number">4</div>
+                        <div class="step-wizard__step-label">المرفقات</div>
+                    </div>
+                    <div class="step-wizard__step" data-step="5">
+                        <div class="step-wizard__step-number">5</div>
+                        <div class="step-wizard__step-label">المراجعة</div>
+                    </div>
+                </div>
+
+                <form id="register-form">
+                    <!-- Step 1 -->
+                    <div class="step-wizard__panel is-active" data-panel="1">
+                        <h3 class="mb-3">البيانات الأساسية للطالب</h3>
+                        <div class="grid" style="grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                            <div class="form-group">
+                                <label class="form-label">الاسم الأول <span class="text-danger">*</span></label>
+                                <input type="text" id="firstName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">اسم الأب <span class="text-danger">*</span></label>
+                                <input type="text" id="fatherName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">اسم الجد <span class="text-danger">*</span></label>
+                                <input type="text" id="grandfatherName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">العائلة <span class="text-danger">*</span></label>
+                                <input type="text" id="familyName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <div class="form-group">
+                                <label class="form-label">الجنس <span class="text-danger">*</span></label>
+                                <select id="gender" class="form-control" required>
+                                    <option value="">اختر...</option>
+                                    <option value="male">ذكر</option>
+                                    <option value="female">أنثى</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">تاريخ الميلاد <span class="text-danger">*</span></label>
+                                <input type="date" id="dob" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">مكان الميلاد</label>
+                                <input type="text" id="birthplace" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">رقم هاتف الطالب (إن وجد)</label>
+                                <input type="tel" id="phone" class="form-control">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label class="form-label">العنوان الوطني / السكن <span class="text-danger">*</span></label>
+                                <textarea id="address" class="form-control" rows="2" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-wizard__panel" data-panel="2">
+                        <h3 class="mb-3">البيانات الدراسية</h3>
+                        <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <div class="form-group">
+                                <label class="form-label">الصف الدراسي المتقدم له <span class="text-danger">*</span></label>
+                                <select id="classId" class="form-control" required>
+                                    <option value="">اختر الصف...</option>
+                                    <!-- Populated by JS -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">العام الدراسي</label>
+                                <input type="text" id="academicYear" class="form-control" value="2025-2026" readonly style="background:#f5f5f5;">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label class="form-label">المدرسة السابقة (إن وجدت)</label>
+                                <input type="text" id="previousSchool" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-wizard__panel" data-panel="3">
+                        <h3 class="mb-3">بيانات ولي الأمر</h3>
+                        <div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <div class="form-group">
+                                <label class="form-label">الاسم الرباعي <span class="text-danger">*</span></label>
+                                <input type="text" id="parentName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">صلة القرابة <span class="text-danger">*</span></label>
+                                <select id="relation" class="form-control" required>
+                                    <option value="">اختر...</option>
+                                    <option value="father">أب</option>
+                                    <option value="mother">أم</option>
+                                    <option value="brother">أخ</option>
+                                    <option value="uncle">عم/خال</option>
+                                    <option value="other">أخرى</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">رقم الجوال <span class="text-danger">*</span></label>
+                                <input type="tel" id="parentPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" id="parentEmail" class="form-control">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label class="form-label">المهنة / جهة العمل</label>
+                                <input type="text" id="occupation" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="step-wizard__panel" data-panel="4">
+                        <h3 class="mb-3">المرفقات المطلوبة</h3>
+                        <p class="text-muted mb-4">* الملفات مطلوبة للمراجعة النهائية لطلب التسجيل</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">صورة شخصية للطالب</label>
+                            <input type="file" id="photo" class="form-control" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">شهادة الميلاد / الهوية</label>
+                            <input type="file" id="idDoc" class="form-control" accept=".pdf,image/*">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الشهادة الدراسية السابقة (إن وجد)</label>
+                            <input type="file" id="certDoc" class="form-control" accept=".pdf,image/*">
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="step-wizard__panel" data-panel="5">
+                        <h3 class="mb-3">مراجعة البيانات</h3>
+                        <div class="summary-card">
+                            <h4 class="mb-2">بيانات الطالب</h4>
+                            <div class="summary-row"><div class="summary-label">الاسم الكامل</div><div class="summary-value" id="sum-name"></div></div>
+                            <div class="summary-row"><div class="summary-label">تاريخ الميلاد</div><div class="summary-value" id="sum-dob"></div></div>
+                            <div class="summary-row"><div class="summary-label">الصف</div><div class="summary-value" id="sum-class"></div></div>
+                        </div>
+                        <div class="summary-card">
+                            <h4 class="mb-2">بيانات ولي الأمر</h4>
+                            <div class="summary-row"><div class="summary-label">الاسم</div><div class="summary-value" id="sum-parent"></div></div>
+                            <div class="summary-row"><div class="summary-label">الجوال</div><div class="summary-value" id="sum-parent-phone"></div></div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="checkbox-group">
+                                <input type="checkbox" id="terms" required> أقر بأن جميع البيانات المدخلة صحيحة وأوافق على الشروط والأحكام.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="step-wizard__actions">
+                        <button type="button" class="btn btn--outline" id="prev-btn" style="display:none;">السابق</button>
+                        <button type="button" class="btn btn--primary" id="next-btn">التالي</button>
+                        <button type="submit" class="btn btn--success" id="submit-btn" style="display:none;">تأكيد وتقديم الطلب</button>
+                    </div>
+                </form>
+
+                <div id="success-message">
+                    <div class="success-icon">✓</div>
+                    <h2>تم تقديم طلب التسجيل بنجاح!</h2>
+                    <p class="mt-2 text-muted">تم استلام طلبك وسيقوم فريق القبول والتسجيل بمراجعته والتواصل معكم قريباً.</p>
+                    <div class="reg-number" id="display-reg-number">REG-2026-00000</div>
+                    <div class="mt-4">
+                        <button class="btn btn--primary" onclick="window.print()">طباعة الإيصال</button>
+                        <a href="../index.html" class="btn btn--outline">العودة للرئيسية</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content" style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 30px; padding: 60px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <div class="footer__col">
+                    <h3 class="footer__title">المدرسة الوطنية النموذجية</h3>
+                    <p style="color:#aaa;">نسعى لتخريج جيل مبدع قادر على مواجهة تحديات المستقبل.</p>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">روابط سريعة</h3>
+                    <ul class="footer__links" style="list-style:none; padding:0;">
+                        <li><a href="../index.html" style="color:#aaa; text-decoration:none;">الرئيسية</a></li>
+                        <li><a href="register.html" style="color:#aaa; text-decoration:none;">التسجيل</a></li>
+                        <li><a href="results.html" style="color:#aaa; text-decoration:none;">النتائج</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h3 class="footer__title">تواصل معنا</h3>
+                    <ul class="footer__links" style="list-style:none; padding:0; color:#aaa;">
+                        <li>📞 011-123-4567</li>
+                        <li>📧 info@wataniya-school.edu.sa</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom" style="text-align:center; padding: 20px 0; color:#888;">
+                حقوق النشر © 2026 المدرسة الوطنية النموذجية
+            </div>
+        </div>
+    </footer>
+    
+    <div class="toast-container" id="toast-container"></div>
+    
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/seed.js"></script>
+    <script src="../js/app.js"></script>
+    <script>
+        (function(){
+            'use strict';
+            document.addEventListener('DOMContentLoaded', () => {
+                let currentStep = 1;
+                const totalSteps = 5;
+                const form = document.getElementById('register-form');
+                const prevBtn = document.getElementById('prev-btn');
+                const nextBtn = document.getElementById('next-btn');
+                const submitBtn = document.getElementById('submit-btn');
+                const successMsg = document.getElementById('success-message');
+
+                // Populate classes
+                if (App.DB) {
+                    const classes = App.DB.getAll('classes');
+                    const classSelect = document.getElementById('classId');
+                    if (classes) {
+                        classes.forEach(c => {
+                            const opt = document.createElement('option');
+                            opt.value = c.id;
+                            opt.textContent = c.name;
+                            classSelect.appendChild(opt);
+                        });
+                    }
+                }
+
+                function updateUI() {
+                    document.querySelectorAll('.step-wizard__panel').forEach(p => p.classList.remove('is-active'));
+                    document.querySelector(`.step-wizard__panel[data-panel="${currentStep}"]`).classList.add('is-active');
+
+                    document.querySelectorAll('.step-wizard__step').forEach((s, idx) => {
+                        s.classList.remove('is-active');
+                        if (idx + 1 < currentStep) s.classList.add('is-completed');
+                        else s.classList.remove('is-completed');
+                        if (idx + 1 === currentStep) s.classList.add('is-active');
+                    });
+
+                    prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+                    if (currentStep === totalSteps) {
+                        nextBtn.style.display = 'none';
+                        submitBtn.style.display = 'block';
+                        populateSummary();
+                    } else {
+                        nextBtn.style.display = 'block';
+                        submitBtn.style.display = 'none';
+                    }
+                }
+
+                function populateSummary() {
+                    const fname = document.getElementById('firstName').value;
+                    const father = document.getElementById('fatherName').value;
+                    const gfather = document.getElementById('grandfatherName').value;
+                    const family = document.getElementById('familyName').value;
+                    document.getElementById('sum-name').textContent = `${fname} ${father} ${gfather} ${family}`;
+                    document.getElementById('sum-dob').textContent = document.getElementById('dob').value;
+                    const classSel = document.getElementById('classId');
+                    document.getElementById('sum-class').textContent = classSel.options[classSel.selectedIndex]?.text || '';
+                    document.getElementById('sum-parent').textContent = document.getElementById('parentName').value;
+                    document.getElementById('sum-parent-phone').textContent = document.getElementById('parentPhone').value;
+                }
+
+                function validateStep(step) {
+                    const panel = document.querySelector(`.step-wizard__panel[data-panel="${step}"]`);
+                    const inputs = panel.querySelectorAll('[required]');
+                    let valid = true;
+                    inputs.forEach(input => {
+                        if (!input.value) {
+                            valid = false;
+                            input.classList.add('form-control--error');
+                        } else {
+                            input.classList.remove('form-control--error');
+                        }
+                    });
+                    return valid;
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    if (validateStep(currentStep)) {
+                        currentStep++;
+                        updateUI();
+                    }
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    currentStep--;
+                    updateUI();
+                });
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (!validateStep(5)) return;
+                    
+                    const regNumber = App.Utils ? App.Utils.generateRegNumber() : 'REG-2026-' + Math.floor(10000+Math.random()*90000);
+                    
+                    // Simulate save to DB
+                    if (App.DB) {
+                        App.DB.create('registrations', {
+                            regNumber,
+                            studentData: {
+                                firstName: document.getElementById('firstName').value,
+                                familyName: document.getElementById('familyName').value
+                            },
+                            status: 'pending',
+                            submittedAt: new Date().toISOString()
+                        });
+                    }
+
+                    form.style.display = 'none';
+                    document.querySelector('.step-wizard__steps').style.display = 'none';
+                    successMsg.style.display = 'block';
+                    document.getElementById('display-reg-number').textContent = regNumber;
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

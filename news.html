@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأخبار والإعلانات - المدرسة الوطنية النموذجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); padding: 60px 0; color: #fff; text-align: center; }
+        .page-header__title { font-size: 2.5rem; margin-bottom: 10px; }
+        .filter-tabs { display: flex; justify-content: center; gap: 15px; margin: 40px 0; }
+        .filter-tab { padding: 10px 20px; border-radius: 20px; background: var(--color-gray-50); cursor: pointer; transition: 0.3s; }
+        .filter-tab.is-active, .filter-tab:hover { background: var(--color-primary); color: #fff; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .news-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.3s; }
+        .news-card:hover { transform: translateY(-5px); }
+        .news-card__header { height: 150px; background: linear-gradient(45deg, var(--color-primary), var(--color-secondary)); position: relative; }
+        .news-card__date { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; color: var(--color-primary-dark); }
+        .news-card__body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .news-card__title { font-size: 1.2rem; margin-bottom: 10px; color: var(--color-gray-800); }
+        .news-card__excerpt { color: var(--color-gray-600); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; flex: 1; }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container flex-between">
+            <a href="../index.html" class="navbar__logo">
+                <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                <span>المدرسة الوطنية النموذجية</span>
+            </a>
+            <button class="navbar__mobile-toggle">☰</button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">الرئيسية</a></li>
+                <li class="navbar__item"><a href="../index.html#about" class="navbar__link">عن المدرسة</a></li>
+                <li class="navbar__item"><a href="news.html" class="navbar__link is-active">الأخبار</a></li>
+                <li class="navbar__item"><a href="results.html" class="navbar__link">النتائج</a></li>
+                <li class="navbar__item"><a href="register.html" class="navbar__link">التسجيل</a></li>
+                <li class="navbar__item"><a href="contact.html" class="navbar__link">تواصل معنا</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">الأخبار والإعلانات</h1>
+            <p>تابع آخر مستجدات وفعاليات المدرسة</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="filter-tabs">
+            <div class="filter-tab is-active" data-filter="all">الكل</div>
+            <div class="filter-tab" data-filter="announcement">إعلانات</div>
+            <div class="filter-tab" data-filter="news">أخبار</div>
+            <div class="filter-tab" data-filter="event">فعاليات</div>
+        </div>
+        
+        <div class="news-grid" id="news-container">
+            <!-- Populated by JS -->
+        </div>
+        
+        <div id="empty-state" class="empty-state" style="display:none; text-align:center; padding:50px 0;">
+            <div class="empty-state__icon" style="font-size:3rem; color:#ccc;">📰</div>
+            <h3>لا توجد أخبار حالياً</h3>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container"><div class="footer__bottom" style="text-align:center; padding: 20px 0;">حقوق النشر © 2026 المدرسة الوطنية النموذجية</div></div>
+    </footer>
+    
+    <div class="modal-overlay" id="modal-overlay"><div class="modal" id="modal"></div></div>
+    
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/seed.js"></script>
+    <script src="../js/components/modal.js"></script>
+    <script>
+        (function(){
+            'use strict';
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('news-container');
+                const emptyState = document.getElementById('empty-state');
+                let allNews = [];
+                
+                if(App.DB) {
+                    allNews = App.DB.getAll('announcements').filter(a => a.status === 'published');
+                }
+                
+                function renderNews(filter = 'all') {
+                    container.innerHTML = '';
+                    let filtered = allNews;
+                    // Note: In actual data, type field would be used for filtering. Assuming all for now.
+                    if(filtered.length === 0) {
+                        emptyState.style.display = 'block';
+                    } else {
+                        emptyState.style.display = 'none';
+                        filtered.forEach(news => {
+                            const card = document.createElement('div');
+                            card.className = 'news-card';
+                            card.innerHTML = `
+                                <div class="news-card__header">
+                                    <div class="news-card__date">${news.publishDate || ''}</div>
+                                </div>
+                                <div class="news-card__body">
+                                    <h3 class="news-card__title">${App.Utils.sanitize(news.title)}</h3>
+                                    <p class="news-card__excerpt">${App.Utils.sanitize(news.content.substring(0,100))}...</p>
+                                    <button class="btn btn--outline btn--sm mt-3" data-id="${news.id}">اقرأ المزيد</button>
+                                </div>
+                            `;
+                            
+                            card.querySelector('button').addEventListener('click', () => {
+                                if(App.Components && App.Components.Modal) {
+                                    App.Components.Modal.open({
+                                        title: news.title,
+                                        content: `
+                                            <div style="font-size:0.9rem; color:#888; margin-bottom:15px;">${news.publishDate}</div>
+                                            <div style="line-height:1.8;">${App.Utils.sanitize(news.content).replace(/\n/g, '<br>')}</div>
+                                        `,
+                                        size: 'md'
+                                    });
+                                } else {
+                                    alert(news.content);
+                                }
+                            });
+                            container.appendChild(card);
+                        });
+                    }
+                }
+                
+                document.querySelectorAll('.filter-tab').forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('is-active'));
+                        this.classList.add('is-active');
+                        renderNews(this.dataset.filter);
+                    });
+                });
+                
+                renderNews();
+            });
+        })();
+    </script>
+</body>
+</html>

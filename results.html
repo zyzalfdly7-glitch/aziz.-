@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث عن النتائج - المدرسة الوطنية النموذجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/dark-theme.css">
+    <link rel="stylesheet" href="../css/rtl.css">
+    <link rel="stylesheet" href="../css/print.css" media="print">
+    <style>
+        .hero-results { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); padding: 80px 0 60px; color: #fff; text-align: center; }
+        .search-card { background: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 600px; margin: -40px auto 40px; position: relative; z-index: 10; }
+        .search-form { display: flex; gap: 15px; }
+        @media (max-width: 768px) { .search-form { flex-direction: column; } }
+        
+        .result-card { display: none; background: #fff; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 40px; overflow: hidden; animation: fadeIn 0.5s; }
+        .result-card__header { background: var(--color-gray-50); padding: 20px; border-bottom: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center; }
+        .student-info h3 { font-size: 1.2rem; color: var(--color-primary); margin-bottom: 5px; }
+        .student-info p { font-size: 0.9rem; color: var(--color-gray-600); }
+        .result-card__body { padding: 20px; }
+        
+        .result-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .result-table th, .result-table td { padding: 12px 15px; text-align: right; border-bottom: 1px solid #eee; }
+        .result-table th { background: var(--color-gray-50); font-weight: 600; color: var(--color-gray-700); }
+        .result-table tr:last-child td { border-bottom: none; }
+        
+        .result-summary { background: #f8fafc; padding: 20px; border-radius: 8px; display: flex; justify-content: space-around; text-align: center; margin-top: 20px; }
+        .summary-item__value { font-size: 1.5rem; font-weight: bold; color: var(--color-primary); margin-bottom: 5px; }
+        .summary-item__label { font-size: 0.9rem; color: var(--color-gray-600); }
+        
+        .print-header { display: none; text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 20px; }
+        .print-header img { height: 80px; }
+        @media print {
+            body * { visibility: hidden; }
+            .print-only, .print-only * { visibility: visible; }
+            .print-only { position: absolute; left: 0; top: 0; width: 100%; }
+            .print-header { display: block; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container flex-between">
+            <a href="../index.html" class="navbar__logo">
+                <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                <span>المدرسة الوطنية النموذجية</span>
+            </a>
+            <button class="navbar__mobile-toggle">☰</button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">الرئيسية</a></li>
+                <li class="navbar__item"><a href="../index.html#about" class="navbar__link">عن المدرسة</a></li>
+                <li class="navbar__item"><a href="news.html" class="navbar__link">الأخبار</a></li>
+                <li class="navbar__item"><a href="results.html" class="navbar__link is-active">النتائج</a></li>
+                <li class="navbar__item"><a href="register.html" class="navbar__link">التسجيل</a></li>
+                <li class="navbar__item"><a href="contact.html" class="navbar__link">تواصل معنا</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <a href="login.html" class="btn btn--primary">تسجيل الدخول</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-results">
+        <div class="container">
+            <h1 style="font-size:2.5rem; margin-bottom:10px;">البحث عن نتائج الطلاب</h1>
+            <p style="font-size:1.1rem; opacity:0.9;">أدخل رقم الجلوس للاستعلام عن النتيجة للفصل الدراسي الحالي</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="search-card">
+            <form id="search-form" class="search-form">
+                <div class="form-group" style="flex:2; margin-bottom:0;">
+                    <input type="number" id="seatNumber" class="form-control" required placeholder="أدخل رقم الجلوس (مثال: 10001)" min="10000" max="99999">
+                </div>
+                <div class="form-group" style="flex:1; margin-bottom:0;">
+                    <select id="academicYear" class="form-control">
+                        <option value="2025-2026">2025-2026</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn--primary" style="flex:1;">بحث</button>
+            </form>
+            <div id="search-error" class="form-error mt-3 text-center" style="display:none;">لم يتم العثور على نتائج لرقم الجلوس المدخل.</div>
+        </div>
+
+        <div id="result-card" class="result-card print-only">
+            <div class="print-header">
+                <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                <h2>المدرسة الوطنية النموذجية</h2>
+                <p>إشعار نتيجة طالب - العام الدراسي <span id="print-year">2025-2026</span></p>
+            </div>
+            
+            <div class="result-card__header">
+                <div class="student-info">
+                    <h3 id="res-name">اسم الطالب</h3>
+                    <p>الصف: <span id="res-class"></span> | القسم: <span id="res-section"></span> | رقم الجلوس: <span id="res-seat"></span></p>
+                </div>
+                <div class="no-print">
+                    <button class="btn btn--outline btn--sm" onclick="window.print()">🖨️ طباعة النتيجة</button>
+                </div>
+            </div>
+            
+            <div class="result-card__body">
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>المادة</th>
+                            <th>الأعمال (30)</th>
+                            <th>النصفي (20)</th>
+                            <th>النهائي (50)</th>
+                            <th>المجموع (100)</th>
+                            <th>التقدير</th>
+                        </tr>
+                    </thead>
+                    <tbody id="res-grades-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+                
+                <div class="result-summary">
+                    <div class="summary-item">
+                        <div class="summary-item__value" id="sum-total">0</div>
+                        <div class="summary-item__label">المجموع الكلي</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-item__value" id="sum-pct">0%</div>
+                        <div class="summary-item__label">النسبة المئوية</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-item__value" id="sum-grade">-</div>
+                        <div class="summary-item__label">التقدير العام</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer no-print">
+        <div class="container">
+            <div class="footer__bottom" style="text-align:center; padding: 20px 0; color:#888;">
+                حقوق النشر © 2026 المدرسة الوطنية النموذجية
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/seed.js"></script>
+    <script>
+        (function(){
+            'use strict';
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('search-form');
+                const resultCard = document.getElementById('result-card');
+                const errorDiv = document.getElementById('search-error');
+
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    errorDiv.style.display = 'none';
+                    resultCard.style.display = 'none';
+                    
+                    const seatNumber = document.getElementById('seatNumber').value;
+                    const year = document.getElementById('academicYear').value;
+                    
+                    if (App.DB) {
+                        const students = App.DB.getAll('students');
+                        const student = students.find(s => s.seatNumber === seatNumber);
+                        
+                        if (student) {
+                            const cls = App.DB.getById('classes', student.classId);
+                            const sec = App.DB.getById('sections', student.sectionId);
+                            const grades = App.DB.query('grades', g => g.studentId === student.id && g.academicYear === year);
+                            
+                            if (grades.length > 0) {
+                                renderResult(student, cls, sec, grades, year);
+                            } else {
+                                errorDiv.textContent = 'الطالب موجود ولكن لا تتوفر نتائج له لهذا العام.';
+                                errorDiv.style.display = 'block';
+                            }
+                        } else {
+                            errorDiv.textContent = 'لم يتم العثور على نتائج لرقم الجلوس المدخل.';
+                            errorDiv.style.display = 'block';
+                        }
+                    } else {
+                        // Mock fallback
+                        errorDiv.textContent = 'قاعدة البيانات غير متوفرة.';
+                        errorDiv.style.display = 'block';
+                    }
+                });
+                
+                function renderResult(student, cls, sec, grades, year) {
+                    document.getElementById('res-name').textContent = student.fullName || student.firstName + ' ' + student.familyName;
+                    document.getElementById('res-class').textContent = cls ? cls.name : '';
+                    document.getElementById('res-section').textContent = sec ? sec.name : '';
+                    document.getElementById('res-seat').textContent = student.seatNumber;
+                    document.getElementById('print-year').textContent = year;
+                    
+                    const tbody = document.getElementById('res-grades-body');
+                    tbody.innerHTML = '';
+                    
+                    let totalScore = 0;
+                    let maxPossible = grades.length * 100;
+                    
+                    grades.forEach(g => {
+                        const subj = App.DB.getById('subjects', g.subjectId);
+                        const subjName = subj ? subj.name : 'مادة';
+                        totalScore += (g.total || 0);
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${subjName}</td>
+                            <td>${g.assignmentGrade || 0}</td>
+                            <td>${g.midtermGrade || 0}</td>
+                            <td>${g.finalGrade || 0}</td>
+                            <td><strong>${g.total || 0}</strong></td>
+                            <td><span class="badge ${App.Utils.getGradeColor ? App.Utils.getGradeColor(g.percentage) : ''}">${g.letterGrade || '-'}</span></td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                    
+                    document.getElementById('sum-total').textContent = `${totalScore} / ${maxPossible}`;
+                    const pct = maxPossible > 0 ? (totalScore / maxPossible * 100).toFixed(1) : 0;
+                    document.getElementById('sum-pct').textContent = `${pct}%`;
+                    const overallLtr = App.Utils.getLetterGrade ? App.Utils.getLetterGrade(pct).labelAr : '-';
+                    document.getElementById('sum-grade').textContent = overallLtr;
+                    
+                    resultCard.style.display = 'block';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

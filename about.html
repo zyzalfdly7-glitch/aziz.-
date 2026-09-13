@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عن المدرسة - المدرسة الوطنية النموذجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); padding: 80px 0; color: #fff; text-align: center; }
+        .page-header__title { font-size: 2.5rem; margin-bottom: 10px; }
+        .content-section { padding: 60px 0; }
+        .vision-mission { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px; }
+        .vm-card { background: var(--color-gray-50); padding: 40px; border-radius: 12px; text-align: center; }
+        .vm-icon { font-size: 3rem; margin-bottom: 20px; color: var(--color-secondary); }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
+        .value-card { background: #fff; padding: 25px; border-radius: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .value-icon { font-size: 2rem; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container flex-between">
+            <a href="../index.html" class="navbar__logo">
+                <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                <span>المدرسة الوطنية النموذجية</span>
+            </a>
+            <button class="navbar__mobile-toggle">☰</button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">الرئيسية</a></li>
+                <li class="navbar__item"><a href="about.html" class="navbar__link is-active">عن المدرسة</a></li>
+                <li class="navbar__item"><a href="news.html" class="navbar__link">الأخبار</a></li>
+                <li class="navbar__item"><a href="results.html" class="navbar__link">النتائج</a></li>
+                <li class="navbar__item"><a href="contact.html" class="navbar__link">تواصل معنا</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">عن المدرسة الوطنية النموذجية</h1>
+            <p>تاريخ من التميز والعطاء في مسيرة التعليم</p>
+        </div>
+    </header>
+
+    <main class="container content-section">
+        <div class="vision-mission">
+            <div class="vm-card">
+                <div class="vm-icon">👁️</div>
+                <h3>رؤيتنا</h3>
+                <p>أن نكون مؤسسة تعليمية رائدة تسهم في بناء جيل متعلم ومبدع ومتميز أخلاقيًا وعلميًا، قادر على المساهمة في تنمية مجتمعه ووطنه.</p>
+            </div>
+            <div class="vm-card">
+                <div class="vm-icon">🎯</div>
+                <h3>رسالتنا</h3>
+                <p>تقديم تعليم متميز في بيئة تربوية محفزة، باستخدام أحدث التقنيات وأفضل الكوادر التعليمية، مع التركيز على بناء الشخصية المتكاملة للطالب.</p>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-bottom: 20px;">
+            <h2 style="font-size:2rem; color:var(--color-primary-dark);">قيمنا الأساسية</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card"><div class="value-icon">⭐</div><h4>التميز</h4></div>
+            <div class="value-card"><div class="value-icon">🤝</div><h4>الأمانة</h4></div>
+            <div class="value-card"><div class="value-icon">💡</div><h4>الإبداع</h4></div>
+            <div class="value-card"><div class="value-icon">👥</div><h4>التعاون</h4></div>
+            <div class="value-card"><div class="value-icon">🙏</div><h4>الاحترام</h4></div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container"><div class="footer__bottom" style="text-align:center; padding: 20px 0;">حقوق النشر © 2026 المدرسة الوطنية النموذجية</div></div>
+    </footer>
+</body>
+</html>

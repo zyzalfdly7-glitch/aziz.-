@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تواصل معنا - المدرسة الوطنية النموذجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); padding: 60px 0; color: #fff; text-align: center; }
+        .page-header__title { font-size: 2.5rem; margin-bottom: 10px; }
+        .contact-section { padding: 60px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .contact-section { grid-template-columns: 1fr; } }
+        
+        .contact-info { background: var(--color-gray-50); padding: 40px; border-radius: 12px; }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+        .info-icon { font-size: 1.5rem; color: var(--color-primary); }
+        .info-content h4 { margin-bottom: 5px; color: var(--color-gray-800); }
+        .info-content p { color: var(--color-gray-600); }
+        
+        .map-container { margin-top: 30px; height: 250px; background: #e0e0e0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #888; }
+        
+        .contact-form-container { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container flex-between">
+            <a href="../index.html" class="navbar__logo">
+                <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                <span>المدرسة الوطنية النموذجية</span>
+            </a>
+            <button class="navbar__mobile-toggle">☰</button>
+            <ul class="navbar__menu">
+                <li class="navbar__item"><a href="../index.html" class="navbar__link">الرئيسية</a></li>
+                <li class="navbar__item"><a href="../index.html#about" class="navbar__link">عن المدرسة</a></li>
+                <li class="navbar__item"><a href="news.html" class="navbar__link">الأخبار</a></li>
+                <li class="navbar__item"><a href="results.html" class="navbar__link">النتائج</a></li>
+                <li class="navbar__item"><a href="register.html" class="navbar__link">التسجيل</a></li>
+                <li class="navbar__item"><a href="contact.html" class="navbar__link is-active">تواصل معنا</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-header__title">تواصل معنا</h1>
+            <p>نحن نسعد دائمًا باستقبال استفساراتكم واقتراحاتكم</p>
+        </div>
+    </header>
+
+    <main class="container contact-section">
+        <div class="contact-info">
+            <h2 class="mb-4">معلومات التواصل</h2>
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-content">
+                    <h4>العنوان</h4>
+                    <p>وادي ذهب ,إب, اليمن</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📞</div>
+                <div class="info-content">
+                    <h4>الهاتف</h4>
+                    <p dir="ltr">778-544-715</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">📧</div>
+                <div class="info-content">
+                    <h4>البريد الإلكتروني</h4>
+                    <p>info@wataniya-school.edu.sa</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🕐</div>
+                <div class="info-content">
+                    <h4>ساعات العمل</h4>
+                    <p>السبت - الاربعاء, 7:00 ص - 2:00 م</p>
+                </div>
+            </div>
+            <div class="map-container">
+                [خريطة الموقع]
+            </div>
+        </div>
+        
+        <div class="contact-form-container">
+            <h2 class="mb-4">أرسل لنا رسالة</h2>
+            <form id="contact-form">
+                <div class="form-group">الاربعاء,
+                    <label class="form-label">الاسم الكامل <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label class="form-label">البريد الإلكتروني <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">رقم الجوال</label>
+                        <input type="tel" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">موضوع الرسالة <span class="text-danger">*</span></label>
+                    <select class="form-control" required>
+                        <option value="">اختر الموضوع...</option>
+                        <option value="inquiry">استفسار عام</option>
+                        <option value="admission">القبول والتسجيل</option>
+                        <option value="complaint">شكوى / اقتراح</option>
+                        <option value="other">أخرى</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">نص الرسالة <span class="text-danger">*</span></label>
+                    <textarea class="form-control" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--block">إرسال الرسالة</button>
+            </form>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container"><div class="footer__bottom" style="text-align:center; padding: 20px 0;">حقوق النشر © 2026 المدرسة الوطنية النموذجية</div></div>
+    </footer>
+    
+    <div class="toast-container" id="toast-container"></div>
+    
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/components/toast.js"></script>
+    <script>
+        (function(){
+            'use strict';
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('contact-form');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if(App.Components && App.Components.Toast) {
+                        App.Components.Toast.success('تم إرسال رسالتك بنجاح، شكراً لتواصلك معنا.');
+                    } else {
+                        alert('تم إرسال رسالتك بنجاح');
+                    }
+                    form.reset();
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

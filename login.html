@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - المدرسة الوطنية النموذجية</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/typography.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    
+    <style>
+        /* Modern Animated Background */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            background: linear-gradient(-45deg, #0a2540, #1a3a6b, #005597, #2d7a96);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Geometric Shapes */
+        .shape {
+            position: absolute;
+            filter: blur(15px);
+            opacity: 0.6;
+            z-index: 0;
+            animation: floatShape 20s infinite ease-in-out alternate;
+        }
+        .shape-1 {
+            width: 300px; height: 300px; background: #c8972a; border-radius: 50%;
+            top: -100px; left: -100px; animation-delay: 0s;
+        }
+        .shape-2 {
+            width: 400px; height: 400px; background: #10b981; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            bottom: -150px; right: -100px; animation-delay: -5s;
+        }
+        .shape-3 {
+            width: 250px; height: 250px; background: #3b82f6; border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            top: 20%; right: 20%; animation-delay: -10s;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            50% { transform: translate(50px, -50px) rotate(180deg) scale(1.1); }
+            100% { transform: translate(-50px, 50px) rotate(360deg) scale(0.9); }
+        }
+
+        /* Floating Science/School Icons */
+        .floating-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 8rem !important;
+            z-index: 0;
+            user-select: none;
+            animation: floatIcon 15s infinite ease-in-out;
+        }
+        .icon-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .icon-2 { bottom: 15%; left: 20%; font-size: 6rem !important; animation-delay: -3s; animation-duration: 18s; }
+        .icon-3 { top: 25%; right: 15%; font-size: 10rem !important; animation-delay: -7s; animation-duration: 22s; }
+        .icon-4 { bottom: 10%; right: 10%; font-size: 7rem !important; animation-delay: -11s; }
+
+        @keyframes floatIcon {
+            0% { transform: translateY(0) rotate(-10deg); }
+            50% { transform: translateY(-40px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(-10deg); }
+        }
+
+        /* Glassmorphism Card */
+        .login-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            perspective: 1000px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            color: white;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .login-card__header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-card__header img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            animation: pulse-alive 2s infinite;
+        }
+
+        .login-card__title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .text-muted {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Interactive Form Inputs */
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .form-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px 45px 15px 15px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        .form-control:focus + .form-icon {
+            color: white;
+        }
+
+        .password-toggle {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: white;
+        }
+
+        /* Animated Submit Button */
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(45deg, #c8972a, #e6b84a);
+            color: #0a2540;
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(200, 151, 42, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(200, 151, 42, 0.4);
+        }
+
+        .btn-submit:hover::after {
+            left: 100%;
+        }
+
+        /* Demo Accounts Glass Table */
+        .demo-accounts {
+            margin-top: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-accounts table {
+            width: 100%;
+            border-collapse: collapse;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .demo-accounts th, .demo-accounts td {
+            padding: 8px;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .demo-accounts tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Checkbox */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        input[type="checkbox"] {
+            accent-color: #c8972a;
+            width: 16px; height: 16px;
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            display: none;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    
+    <!-- Floating Icons -->
+    <span class="material-symbols-outlined floating-icon icon-1">school</span>
+    <span class="material-symbols-outlined floating-icon icon-2">menu_book</span>
+    <span class="material-symbols-outlined floating-icon icon-3">science</span>
+    <span class="material-symbols-outlined floating-icon icon-4">biotech</span>
+
+    <div class="login-wrapper" id="parallax-wrapper">
+        <div class="login-card" id="login-card">
+            <div class="login-card__header">
+                <a href="../index.html">
+                    <img src="../assets/images/logo.svg" alt="Logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiMwMDU1OTciLz48L3N2Zz4='">
+                </a>
+                <h1 class="login-card__title">تسجيل الدخول</h1>
+                <p class="text-muted">مرحباً بك مجدداً في بوابتك التعليمية</p>
+            </div>
+            
+            <div id="login-error" class="error-message"></div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" required placeholder="البريد الإلكتروني">
+                    <span class="material-symbols-outlined form-icon">mail</span>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" id="password" class="form-control" required placeholder="كلمة المرور">
+                    <span class="material-symbols-outlined form-icon">lock</span>
+                    <span class="material-symbols-outlined password-toggle" id="toggle-password" title="عرض/إخفاء">visibility_off</span>
+                </div>
+                
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">تذكرني على هذا الجهاز</label>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    تسجيل الدخول <span class="material-symbols-outlined">login</span>
+                </button>
+            </form>
+            
+            <div class="demo-accounts">
+                <div style="text-align: center; margin-bottom: 10px; font-weight: bold;">حسابات تجريبية</div>
+                <table>
+                    <tr>
+                        <td>المدير</td>
+                        <td dir="ltr">admin@school.com</td>
+                        <td dir="ltr">Admin@2026</td>
+                    </tr>
+                    <tr>
+                        <td>المعلم</td>
+                        <td dir="ltr">teacher@school.com</td>
+                        <td dir="ltr">Teacher@2026</td>
+                    </tr>
+                    <tr>
+                        <td>الطالب</td>
+                        <td dir="ltr">student@school.com</td>
+                        <td dir="ltr">Student@2026</td>
+                    </tr>
+                    <tr>
+                        <td>ولي الأمر</td>
+                        <td dir="ltr">parent@school.com</td>
+                        <td dir="ltr">Parent@2026</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/seed.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Password Toggle
+            const togglePassword = document.getElementById('toggle-password');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+            });
+
+            // 3D Tilt Effect for Card
+            const wrapper = document.getElementById('parallax-wrapper');
+            const card = document.getElementById('login-card');
+            
+            wrapper.addEventListener('mousemove', (e) => {
+                const rect = wrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+            
+            wrapper.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            });
+
+            // Login Logic
+            const loginForm = document.getElementById('login-form');
+            const loginError = document.getElementById('login-error');
+            
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                loginError.style.display = 'none';
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const btn = loginForm.querySelector('.btn-submit');
+                
+                // Loading state
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-outlined" style="animation: spin 1s linear infinite">sync</span> جاري الدخول...';
+                btn.disabled = true;
+                
+                try {
+                    // Simulate network delay for effect
+                    await new Promise(r => setTimeout(r, 800));
+                    
+                    const result = App.Auth.login(email, password);
+                    if (result.success) {
+                        btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> تم بنجاح!';
+                        btn.style.background = '#10b981';
+                        btn.style.color = '#fff';
+                        setTimeout(() => {
+                            window.location.href = '../dashboards/' + result.user.role + '/index.html';
+                        }, 500);
+                    } else {
+                        throw new Error(result.error || 'البريد الإلكتروني أو كلمة المرور غير صحيحة');
+                    }
+                } catch (err) {
+                    loginError.textContent = err.message;
+                    loginError.style.display = 'block';
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                    
+                    // Shake effect
+                    card.style.animation = 'none';
+                    card.offsetHeight; /* trigger reflow */
+                    card.style.animation = 'shake 0.5s';
+                }
+            });
+        });
+        
+        // Keyframes for spinner
+        const style = document.createElement('style');
+        style.innerHTML = '@keyframes spin { 100% { transform: rotate(360deg); } }';
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

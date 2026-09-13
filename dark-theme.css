@@ -1,0 +1,63 @@
+/* dark-theme.css */
+[data-theme='dark'] {
+  --background: #0f1117;
+  --surface: #1a1d27;
+  --surface-hover: #242836;
+  --text: #e4e6eb;
+  --text-muted: #8b8fa3;
+  --text-light: #6b7084;
+  --border: #2d3148;
+  --border-light: #252839;
+  
+  --gray-50: #212529;
+  --gray-100: #343a40;
+  --gray-200: #495057;
+  --gray-800: #e9ecef;
+  --gray-900: #f8f9fa;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  
+  color-scheme: dark;
+}
+
+[data-theme='dark'] .topbar {
+  background-color: var(--surface);
+}
+
+[data-theme='dark'] .modal {
+  background-color: var(--surface);
+}
+
+[data-theme='dark'] .card {
+  background-color: var(--surface);
+  border-color: var(--border-light);
+}
+
+[data-theme='dark'] .form-control {
+  background-color: #12141c;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+[data-theme='dark'] .form-control:focus {
+  border-color: var(--primary-400);
+}
+
+[data-theme='dark'] .data-table th {
+  background-color: var(--surface-hover);
+}
+
+[data-theme='dark'] .data-table tbody tr:hover {
+  background-color: rgba(255,255,255,0.03);
+}
+
+[data-theme='dark'] .toast {
+  background-color: var(--surface);
+}
+
+[data-theme='dark'] .dropdown__menu {
+  background-color: var(--surface);
+  border-color: var(--border-light);
+}

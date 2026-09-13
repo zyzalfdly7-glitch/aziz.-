@@ -1,0 +1,90 @@
+/* animations.css */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Utility Classes */
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease;
+  animation-fill-mode: both;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s ease;
+  animation-fill-mode: both;
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.4s ease;
+  animation-fill-mode: both;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease;
+  animation-fill-mode: both;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: var(--radius-md);
+}
+
+@keyframes pulse-alive { 
+  0% { box-shadow: 0 0 0 0 rgba(100, 150, 255, 0.4); } 
+  70% { box-shadow: 0 0 0 10px rgba(100, 150, 255, 0); } 
+  100% { box-shadow: 0 0 0 0 rgba(100, 150, 255, 0); } 
+}
+
+.pulse-alive {
+  animation: pulse-alive 2s infinite;
+}

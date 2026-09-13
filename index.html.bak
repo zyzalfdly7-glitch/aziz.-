@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ظ„ظˆط­ط© ط§ظ„طھط­ظƒظ… - ط§ظ„ظ…ط¯ط±ط³ط© ط§ظ„ظˆط·ظ†ظٹط© ط§ظ„ظ†ظ…ظˆط°ط¬ظٹط©</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/typography.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/forms.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/animations.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/dark-theme.css">
+    <link rel="stylesheet" href="../../css/rtl.css">
+    <link rel="stylesheet" href="../../css/print.css" media="print">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar__header">
+            <img src="../../assets/images/logo.svg" alt="Logo" class="sidebar__logo">
+            <span class="sidebar__school-name">ط§ظ„ظ…ط¯ط±ط³ط© ط§ظ„ظˆط·ظ†ظٹط© ط§ظ„ظ†ظ…ظˆط°ط¬ظٹط©</span>
+        </div>
+        <nav class="sidebar__menu" id="sidebar-menu">
+            <!-- Menu items rendered by sidebar.js -->
+        </nav>
+        <div class="sidebar__footer">
+            <button class="btn btn--ghost btn--sm" id="logout-btn">
+                <span class="sidebar__icon">ًںڑھ</span>
+                <span class="sidebar__text">طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
+    <div class="dashboard-main">
+        <header class="topbar" id="topbar">
+            <button class="topbar__toggle" id="sidebar-toggle">âک°</button>
+            <h1 class="topbar__title">ظ„ظˆط­ط© ط§ظ„طھط­ظƒظ…</h1>
+            <div class="topbar__actions">
+                <button class="topbar__notification" id="notification-btn">
+                    ًں””<span class="topbar__notification-badge" id="notification-badge" style="display:none">0</span>
+                </button>
+                <button class="btn btn--ghost btn--sm" id="theme-toggle">ًںŒ™</button>
+                <button class="btn btn--ghost btn--sm" id="lang-toggle">EN</button>
+                <div class="topbar__user" id="user-menu">
+                    <img src="../../assets/images/default-avatar.svg" class="topbar__avatar" alt="">
+                    <span class="topbar__user-name" id="user-name"></span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="dashboard-content" id="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h2 class="page-header__title" id="welcome-message">ظ…ط±ط­ط¨ظ‹ط§</h2>
+                    <p class="page-header__subtitle" id="current-date"></p>
+                </div>
+            </div>
+            
+            <div class="stats-grid mt-4" id="dashboard-stats">
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--primary-color)">ًں‘¨ًںژ“</div><div class="stat-card__info"><span class="stat-card__label">ط¥ط¬ظ…ط§ظ„ظٹ ط§ظ„ط·ظ„ط§ط¨</span><span class="stat-card__value" id="stat-students">0</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--success-color)">ًں‘¨ًںڈ«</div><div class="stat-card__info"><span class="stat-card__label">ط¥ط¬ظ…ط§ظ„ظٹ ط§ظ„ظ…ط¹ظ„ظ…ظٹظ†</span><span class="stat-card__value" id="stat-teachers">0</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--secondary-color)">ًںڈ«</div><div class="stat-card__info"><span class="stat-card__label">ط§ظ„طµظپظˆظپ ط§ظ„ط¯ط±ط§ط³ظٹط©</span><span class="stat-card__value" id="stat-classes">0</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--warning-color)">ًں“‹</div><div class="stat-card__info"><span class="stat-card__label">ط·ظ„ط¨ط§طھ ط§ظ„طھط³ط¬ظٹظ„ ط§ظ„ط¬ط¯ظٹط¯ط©</span><span class="stat-card__value" id="stat-registrations">0</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--success-color)">ًں’°</div><div class="stat-card__info"><span class="stat-card__label">ط§ظ„ط±ط³ظˆظ… ط§ظ„ظ…ط­طµظ„ط©</span><span class="stat-card__value" id="stat-paid">0 ط±.ط³</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--danger-color)">ًں’³</div><div class="stat-card__info"><span class="stat-card__label">ط§ظ„ط±ط³ظˆظ… ط§ظ„ظ…طھط¨ظ‚ظٹط©</span><span class="stat-card__value" id="stat-unpaid">0 ط±.ط³</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--info-color)">ًں“ٹ</div><div class="stat-card__info"><span class="stat-card__label">ظ†ط³ط¨ط© ط§ظ„ط­ط¶ظˆط± ط§ظ„ظٹظˆظ…</span><span class="stat-card__value" id="stat-attendance">0%</span></div></div>
+                <div class="stat-card"><div class="stat-card__icon" style="background-color:var(--warning-color)">ًں“¢</div><div class="stat-card__info"><span class="stat-card__label">ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ ط§ظ„ظ†ط´ط·ط©</span><span class="stat-card__value" id="stat-announcements">0</span></div></div>
+            </div>
+            
+            <div class="grid mt-4" style="grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">طھظˆط²ظٹط¹ ط§ظ„ط·ظ„ط§ط¨ ط­ط³ط¨ ط§ظ„طµظپظˆظپ</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container">
+                            <canvas id="students-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">ط­ط§ظ„ط© ط§ظ„ط±ط³ظˆظ…</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container">
+                            <canvas id="fees-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid mt-4" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">ظ†ط³ط¨ط© ط§ظ„ط­ط¶ظˆط± ط§ظ„ط£ط³ط¨ظˆط¹ظٹط©</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container">
+                            <canvas id="attendance-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">ظ…طھظˆط³ط· ط§ظ„ط¯ط±ط¬ط§طھ ط­ط³ط¨ ط§ظ„ظ…ط§ط¯ط©</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="chart-container">
+                            <canvas id="grades-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card__header">
+                    <h3 class="card__title">ط¥ط¬ط±ط§ط،ط§طھ ط³ط±ظٹط¹ط©</h3>
+                </div>
+                <div class="card__body">
+                    <div class="quick-actions grid" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;">
+                        <a href="students.html" class="quick-actions__item btn btn--outline">ط¥ط¶ط§ظپط© ط·ط§ظ„ط¨</a>
+                        <a href="teachers.html" class="quick-actions__item btn btn--outline">ط¥ط¶ط§ظپط© ظ…ط¹ظ„ظ…</a>
+                        <a href="grades.html" class="quick-actions__item btn btn--outline">ط¥ط¯ط®ط§ظ„ ط¯ط±ط¬ط§طھ</a>
+                        <a href="announcements.html" class="quick-actions__item btn btn--outline">ظ†ط´ط± ط¥ط¹ظ„ط§ظ†</a>
+                        <a href="lessons.html" class="quick-actions__item btn btn--outline">ط¥ط¶ط§ظپط© ط¯ط±ط³</a>
+                        <a href="classes.html" class="quick-actions__item btn btn--outline">ط¥ظ†ط´ط§ط، طµظپ</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid mt-4" style="grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">ط¢ط®ط± ط§ظ„ط·ظ„ط¨ط§طھ ط§ظ„ظ…ظ‚ط¯ظ…ط©</h3>
+                    </div>
+                    <div class="card__body" id="recent-registrations">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead><tr><th>ط§ظ„ط§ط³ظ…</th><th>ط§ظ„طھط§ط±ظٹط®</th><th>ط§ظ„ط­ط§ظ„ط©</th></tr></thead>
+                                <tbody id="registrations-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title">ط¢ط®ط± ط§ظ„ط¥ط¹ظ„ط§ظ†ط§طھ</h3>
+                    </div>
+                    <div class="card__body" id="recent-announcements">
+                        <ul id="announcements-list" style="list-style:none; padding:0; margin:0;"></ul>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    
+    <div class="toast-container" id="toast-container"></div>
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal"></div>
+    </div>
+    
+    <script src="../../js/config.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/database.js"></script>
+    <script src="../../js/seed.js"></script>
+    <script src="../../js/i18n.js"></script>
+    <script src="../../js/translations/ar.js"></script>
+    <script src="../../js/translations/en.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/validation.js"></script>
+    <script src="../../js/notifications.js"></script>
+    <script src="../../js/router.js"></script>
+    <script src="../../js/charts.js"></script>
+    <script src="../../js/export.js"></script>
+    <script src="../../js/components/toast.js?v=3"></script>
+    <script src="../../js/components/modal.js?v=3"></script>
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/components/table.js"></script>
+    <script src="../../js/components/tabs.js"></script>
+    <script src="../../js/components/dropdown.js"></script>
+    <script src="../../js/components/pagination.js"></script>
+    <script src="../../js/components/form-builder.js"></script>
+    <script src="../../js/components/chart.js"></script>
+    <script src="../../js/components/breadcrumb.js"></script>
+    <script src="../../js/components/empty-state.js"></script>
+    <script src="../../js/modules/students.js"></script>
+    <script src="../../js/modules/teachers.js"></script>
+    <script src="../../js/modules/grades.js"></script>
+    <script src="../../js/modules/attendance.js"></script>
+    <script src="../../js/modules/payments.js"></script>
+    <script src="../../js/modules/announcements.js"></script>
+    <script src="../../js/modules/registrations.js"></script>
+    <script src="../../js/app.js"></script>
+    
+        <script>
+            (function() {
+                App.Auth.requireAuth(['admin']);
+                const user = App.Auth.getCurrentUser();
+                document.getElementById('welcome-message').textContent = `ظ…ط±ط­ط¨ظ‹ط§طŒ ${user.name.split(' ')[0]}`;
+                document.getElementById('current-date').textContent = App.Utils.formatDate(new Date());
+                
+                if (App.DB && App.DB.getAll) {
+                    document.getElementById('stat-students').textContent = App.DB.count ? App.DB.count('students') : (App.DB.getAll('students')||[]).length;
+                    document.getElementById('stat-teachers').textContent = App.DB.count ? App.DB.count('teachers') : (App.DB.getAll('teachers')||[]).length;
+                    document.getElementById('stat-classes').textContent = App.DB.count ? App.DB.count('classes') : (App.DB.getAll('classes')||[]).length;
+                    
+                    const registrations = App.DB.getAll('registrations') || [];
+                    document.getElementById('stat-registrations').textContent = registrations.filter(r => r.status === 'pending' || r.status === 'ظ‚ظٹط¯ ط§ظ„ط§ظ†طھط¸ط§ط±').length;
+                    
+                    const payments = App.DB.getAll('payments') || [];
+                    const paid = payments.filter(p => p.status === 'paid' || p.status === 'ظ…ط¯ظپظˆط¹').reduce((acc, p) => acc + (Number(p.amount) || 0), 0);
+                    const unpaid = payments.filter(p => p.status !== 'paid' && p.status !== 'ظ…ط¯ظپظˆط¹').reduce((acc, p) => acc + (Number(p.amount) || 0), 0);
+                    
+                    const formatCur = App.Utils && App.Utils.formatCurrency ? App.Utils.formatCurrency : (v) => v + ' ط±.ط³';
+                    document.getElementById('stat-paid').textContent = formatCur(paid);
+                    document.getElementById('stat-unpaid').textContent = formatCur(unpaid);
+                    
+                    const attendance = App.DB.getAll('attendance') || [];
+                    const today = new Date().toISOString().split('T')[0];
+                    const todayAtt = attendance.filter(a => a.date === today);
+                    if (todayAtt.length > 0) {
+                        const present = todayAtt.filter(a => a.status === 'present' || a.status === 'ط­ط§ط¶ط±').length;
+                        document.getElementById('stat-attendance').textContent = ((present / todayAtt.length) * 100).toFixed(1) + '%';
+                    } else {
+                        document.getElementById('stat-attendance').textContent = 'ظ„ط§ طھظˆط¬ط¯ ط¨ظٹط§ظ†ط§طھ';
+                    }
+                    
+                    document.getElementById('stat-announcements').textContent = App.DB.count ? App.DB.count('announcements') : (App.DB.getAll('announcements')||[]).length;
+
+                    const tbody = document.getElementById('registrations-tbody');
+                    if (tbody) {
+                        const recentRegs = [...registrations].sort((a,b) => new Date(b.createdAt||0) - new Date(a.createdAt||0)).slice(0, 5);
+                        if (recentRegs.length === 0) {
+                            tbody.innerHTML = '<tr><td colspan="3" class="text-center text-gray" style="padding:10px;">ظ„ط§ طھظˆط¬ط¯ ط·ظ„ط¨ط§طھ</td></tr>';
+                        } else {
+                            tbody.innerHTML = recentRegs.map(r => `<tr><td style="padding:10px;">${r.studentName}</td><td style="padding:10px;">${App.Utils.formatDate(r.createdAt || new Date())}</td><td style="padding:10px;"><span class="badge ${r.status === 'pending' || r.status === 'ظ‚ظٹط¯ ط§ظ„ط§ظ†طھط¸ط§ط±' ? 'badge--warning' : 'badge--success'}">${r.status}</span></td></tr>`).join('');
+                        }
+                    }
+
+                    const annList = document.getElementById('announcements-list');
+                    if (annList) {
+                        const announcements = App.DB.getAll('announcements') || [];
+                        const recentAnns = [...announcements].sort((a,b) => new Date(b.createdAt||0) - new Date(a.createdAt||0)).slice(0, 5);
+                        if (recentAnns.length === 0) {
+                            annList.innerHTML = '<li class="text-center text-gray" style="padding:10px;">ظ„ط§ طھظˆط¬ط¯ ط¥ط¹ظ„ط§ظ†ط§طھ</li>';
+                        } else {
+                            annList.innerHTML = recentAnns.map(a => `<li style="padding: 10px; border-bottom: 1px solid #eee;"><strong>${a.title}</strong><br><small class="text-gray" style="color:#666;">${App.Utils.formatDate(a.createdAt || new Date())}</small></li>`).join('');
+                        }
+                    }
+                }
+                
+                if (window.Chart) {
+                    const classes = (App.DB && App.DB.getAll) ? App.DB.getAll('classes') || [] : [];
+                    const students = (App.DB && App.DB.getAll) ? App.DB.getAll('students') || [] : [];
+                    
+                    const classLabels = classes.map(c => c.name);
+                    const classData = classes.map(c => students.filter(s => s.classId === c.id).length);
+                    
+                    const ctxStudents = document.getElementById('students-chart');
+                    if (ctxStudents) {
+                        new Chart(ctxStudents, {
+                            type: 'bar',
+                            data: {
+                                labels: classLabels.length ? classLabels : ['ظ„ط§ طھظˆط¬ط¯ ظپطµظˆظ„'],
+                                datasets: [{
+                                    label: 'ط¹ط¯ط¯ ط§ظ„ط·ظ„ط§ط¨',
+                                    data: classLabels.length ? classData : [0],
+                                    backgroundColor: 'rgba(13, 110, 253, 0.7)'
+                                }]
+                            }
+                        });
+                    }
+                    
+                    const payments = (App.DB && App.DB.getAll) ? App.DB.getAll('payments') || [] : [];
+                    const paidCount = payments.filter(p => p.status === 'paid' || p.status === 'ظ…ط¯ظپظˆط¹').length;
+                    const unpaidCount = payments.length - paidCount;
+                    
+                    const ctxFees = document.getElementById('fees-chart');
+                    if (ctxFees) {
+                        new Chart(ctxFees, {
+                            type: 'pie',
+                            data: {
+                                labels: ['ظ…ط¯ظپظˆط¹', 'ط؛ظٹط± ظ…ط¯ظپظˆط¹'],
+                                datasets: [{
+                                    data: [paidCount, unpaidCount],
+                                    backgroundColor: ['#198754', '#dc3545']
+                                }]
+                            }
+                        });
+                    }
+                }
+            })();
+        </script>
+</body>
+</html>
+

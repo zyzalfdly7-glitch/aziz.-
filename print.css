@@ -1,0 +1,55 @@
+/* print.css */
+@media print {
+  .sidebar,
+  .topbar,
+  .toast-container,
+  .modal-overlay,
+  .btn:not(.btn--print),
+  .navbar,
+  .footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: black;
+    font-size: 12pt;
+  }
+
+  .dashboard-main {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .dashboard-content {
+    padding: 0 !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    break-inside: avoid;
+    margin-bottom: 20px;
+  }
+
+  .data-table th {
+    background-color: #f8f9fa !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+.print-only {
+  display: none;
+}

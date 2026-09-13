@@ -1,0 +1,51 @@
+/* rtl.css (Handles LTR overrides for when English is selected) */
+[dir="ltr"] {
+  --font-primary: var(--font-en);
+}
+
+[dir="ltr"] .text-right { text-align: left; }
+[dir="ltr"] .text-left { text-align: right; }
+
+[dir="ltr"] .sidebar {
+  right: auto;
+  left: 0;
+}
+
+[dir="ltr"] .dashboard-main {
+  margin-right: 0;
+  margin-left: var(--sidebar-width);
+}
+
+[dir="ltr"] .sidebar__link {
+  border-right: none;
+  border-left: 3px solid transparent;
+}
+
+[dir="ltr"] .sidebar__link.is-active {
+  border-right-color: transparent;
+  border-left-color: var(--secondary-500);
+}
+
+[dir="ltr"] .sidebar__badge {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+[dir="ltr"] .topbar__actions {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+[dir="ltr"] .topbar__notification-badge {
+  left: auto;
+  right: 0;
+}
+
+[dir="ltr"] .data-table th {
+  text-align: left;
+}
+
+[dir="ltr"] .modal__close {
+  margin-right: auto;
+  margin-left: 0;
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفوفي - المدرسة الوطنية النموذجية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/typography.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/forms.css">
+    <link rel="stylesheet" href="../../css/layout.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/animations.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/dark-theme.css">
+    <link rel="stylesheet" href="../../css/rtl.css">
+    <link rel="stylesheet" href="../../css/print.css" media="print">
+    <!-- Chart.js -->
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar__header">
+            <img src="../../assets/images/logo.svg" alt="Logo" class="sidebar__logo">
+            <span class="sidebar__school-name">المدرسة الوطنية النموذجية</span>
+        </div>
+        <nav class="sidebar__menu" id="sidebar-menu">
+            <!-- Menu items rendered by sidebar.js -->
+        </nav>
+        <div class="sidebar__footer">
+            <button class="btn btn--ghost btn--sm" id="logout-btn">
+                <span class="sidebar__icon">🚪</span>
+                <span class="sidebar__text">تسجيل الخروج</span>
+            </button>
+        </div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
+    <div class="dashboard-main">
+        <header class="topbar" id="topbar">
+            <button class="topbar__toggle" id="sidebar-toggle">☰</button>
+            <h1 class="topbar__title">صفوفي</h1>
+            <div class="topbar__actions">
+                <button class="topbar__notification" id="notification-btn">
+                    🔔<span class="topbar__notification-badge" id="notification-badge" style="display:none">0</span>
+                </button>
+                <button class="btn btn--ghost btn--sm" id="theme-toggle">🌙</button>
+                <button class="btn btn--ghost btn--sm" id="lang-toggle">EN</button>
+                <div class="topbar__user" id="user-menu">
+                    <img src="../../assets/images/default-avatar.svg" class="topbar__avatar" alt="">
+                    <span class="topbar__user-name" id="user-name"></span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="dashboard-content" id="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h2 class="page-header__title">صفوفي</h2>
+                </div>
+                <div class="page-header__actions">
+                    <button class="btn btn--primary" id="btn-add">إضافة جديد</button>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card__body" id="page-content">
+                    <!-- Dynamic content injected by module -->
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    
+    <div class="toast-container" id="toast-container"></div>
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal"></div>
+    </div>
+    
+    <script src="../../js/config.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/database.js"></script>
+    <script src="../../js/seed.js"></script>
+    <script src="../../js/i18n.js"></script>
+    <script src="../../js/translations/ar.js"></script>
+    <script src="../../js/translations/en.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/validation.js"></script>
+    <script src="../../js/notifications.js"></script>
+    <script src="../../js/router.js"></script>
+    <script src="../../js/charts.js"></script>
+    <script src="../../js/export.js"></script>
+    <script src="../../js/components/toast.js"></script>
+    <script src="../../js/components/modal.js"></script>
+    <script src="../../js/components/sidebar.js"></script>
+    <script src="../../js/components/table.js"></script>
+    <script src="../../js/components/tabs.js"></script>
+    <script src="../../js/components/dropdown.js"></script>
+    <script src="../../js/components/pagination.js"></script>
+    <script src="../../js/components/form-builder.js"></script>
+    <script src="../../js/components/chart.js"></script>
+    <script src="../../js/components/breadcrumb.js"></script>
+    <script src="../../js/components/empty-state.js"></script>
+    <script src="../../js/modules/classes.js"></script>
+    <script src="../../js/modules/students.js"></script>
+    <script src="../../js/app.js"></script>
+    
+        <script>
+            (function() {
+                App.Auth.requireAuth(['teacher']);
+                const user = App.Auth.getCurrentUser();
+                let teacher = null;
+                if (user && App.DB && App.DB.getTeacherByUserId) {
+                    teacher = App.DB.getTeacherByUserId(user.id);
+                }
+
+                if(App.Modules && App.Modules.Classes) {
+                    const originalGetAll = App.Modules.Classes.getAll.bind(App.Modules.Classes);
+                    App.Modules.Classes.getAll = function() {
+                        const allClasses = originalGetAll();
+                        if (!teacher || !teacher.classes || !Array.isArray(teacher.classes)) return allClasses;
+                        return allClasses.filter(c => teacher.classes.includes(c.id));
+                    };
+                    App.Modules.Classes.renderList('page-content');
+                }
+            })();
+        </script>
+</body>
+</html>
